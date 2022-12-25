@@ -8,25 +8,24 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private float _healthChangeTime;
+    [SerializeField] private Health _health;
 
     private Slider _healthBar;
 
     private void Start()
     {
         _healthBar = GetComponent<Slider>();
+
+        _healthBar.maxValue = _health.HealthMax;
+        _healthBar.value = _health.CurrentHealth;
     }
 
-    public void ChangeHealthBarView(int currentHealht, int healthChange)
+    public void ChangeHealthBarView()
     {
-        healthChange = Mathf.Abs(healthChange);
+        float currentHealht = _health.CurrentHealth;
+        float healthChange = Mathf.Abs(currentHealht - _healthBar.value);
 
         StartCoroutine(ChangeHealthBarValue(currentHealht, healthChange));
-    }
-
-    public void SetValue(int healhtMax,int currentHealht)
-    {
-        _healthBar.maxValue = healhtMax;
-        _healthBar.value = currentHealht;
     }
 
     private IEnumerator ChangeHealthBarValue(float currentHealht, float healthChange)

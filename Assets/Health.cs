@@ -5,14 +5,16 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private int _healthMax;
-    [SerializeField] private HealthBar _healthBar;
 
     private int _currentHealth;
 
-    private void Start()
+    public int HealthMax => _healthMax;
+    public int CurrentHealth => _currentHealth;
+
+
+    private void Awake()
     {
         _currentHealth = _healthMax;
-        _healthBar.SetValue(_healthMax,_currentHealth);
     }
 
     public void ChangeHealth(int healthChange)
@@ -20,8 +22,6 @@ public class Health : MonoBehaviour
         if (_currentHealth > healthChange && _currentHealth + healthChange <= _healthMax) 
         {
             _currentHealth += healthChange;
-
-            _healthBar.ChangeHealthBarView(_currentHealth, healthChange);
         }
     }
 }
